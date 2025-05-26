@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ _('Seller Requests') }}</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 20px;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%);
+        }
+        h1 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 10px;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border: 1px solid #00ff00;
+            padding: 5px 10px;
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+        a:hover {
+            background-color: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 5px #00ff00;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #111;
+            border: 1px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #001a00;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 5px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        button:hover {
+            background-color: rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 5px #00ff00;
+        }
+        .reject-btn {
+            background-color: #1a0000;
+            color: #ff0000;
+            border-color: #ff0000;
+        }
+        .reject-btn:hover {
+            background-color: rgba(255, 0, 0, 0.2);
+            box-shadow: 0 0 5px #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ _('Seller Requests') }}</h1>
+    <p><a href="{{ url_for('index') }}">{{ _('Home') }}</a></p>
+    <ul>
+        {% for u in users %}
+            <li>
+                {{ u.username }}
+                <form action="{{ url_for('approve_seller', uid=u.id) }}" method="post" style="display:inline;">
+                    {{ form.csrf_token }}<button type="submit">{{ _('Approve') }}</button>
+                </form>
+                <form action="{{ url_for('reject_seller', uid=u.id) }}" method="post" style="display:inline;">
+                    {{ form.csrf_token }}<button type="submit" class="reject-btn">{{ _('Reject') }}</button>
+                </form>
+            </li>
+        {% else %}
+            <li>{{ _('No pending requests.') }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html></form>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ _('Manage Users') }}</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #001100 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #002200 0%, transparent 50%);
+        }
+        
+        h1 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            animation: flicker 2s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        a {
+            color: #00cc00;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid #00cc00;
+            background-color: rgba(0, 204, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        a:hover {
+            background-color: rgba(0, 204, 0, 0.3);
+            box-shadow: 0 0 15px #00cc00;
+            color: #ffffff;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #00ff00;
+            background-color: rgba(0, 0, 0, 0.8);
+            margin-top: 20px;
+        }
+        
+        th, td {
+            border: 1px solid #004400;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #001a00;
+            color: #00ff00;
+            font-weight: bold;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(0, 34, 0, 0.3);
+        }
+        
+        tr:hover {
+            background-color: rgba(0, 68, 0, 0.5);
+        }
+        
+        .nav-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .console-text {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .status-icon {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ _('Manage Users') }}</h1>
+    
+    <div class="nav-container">
+        <a href="{{ url_for('index') }}">{{ _('Home') }}</a>
+    </div>
+    
+    <table class="console-text">
+        <tr>
+            <th>{{ _('ID') }}</th>
+            <th>{{ _('Username') }}</th>
+            <th>{{ _('Seller?') }}</th>
+            <th>{{ _('Approved?') }}</th>
+            <th>{{ _('Actions') }}</th>
+        </tr>
+        {% for u in users %}
+        <tr>
+            <td>{{ u.id }}</td>
+            <td>{{ u.username }}</td>
+            <td class="status-icon">{{ '✔️' if u.is_seller else '❌' }}</td>
+            <td class="status-icon">{{ '✔️' if u.is_approved else '❌' }}</td>
+            <td>
+                <a href="{{ url_for('admin_change_password', uid=u.id) }}">
+                    {{ _('Change Password') }}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

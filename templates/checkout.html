@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ _('Secure Checkout') }}</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.1) 0%, transparent 50%);
+        }
+        
+        h1 {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 2px solid #00ff00;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #00ff00;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        p {
+            margin: 15px 0;
+        }
+        
+        label {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        input[type="text"], input[type="hidden"] {
+            background: #1a1a1a;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 8px;
+            width: 100%;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 5px #00ff00;
+        }
+        
+        input[type="submit"] {
+            background: #001100;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            padding: 12px 30px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        input[type="submit"]:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 15px #00ff00;
+        }
+        
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border: 1px solid #00ff00;
+            padding: 10px 20px;
+            display: inline-block;
+            margin-top: 20px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        
+        a:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 10px #00ff00;
+        }
+        
+        #map {
+            height: 300px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            margin: 15px 0;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .secure-notice {
+            text-align: center;
+            color: #00ff00;
+            font-size: 12px;
+            margin-top: 20px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ _('SECURE CHECKOUT') }}</h1>
+        <form method="post">
+            {{ form.csrf_token }}
+            <p>{{ form.address.label }}: {{ form.address }}</p>
+            {{ form.lat }} {{ form.lon }}
+            <div id="map"></div>
+            <p>{{ form.submit }}</p>
+        </form>
+        <a href="{{ url_for('cart') }}">{{ _('← Back to Cart') }}</a>
+        <div class="secure-notice">
+            ⚠ ENCRYPTED CONNECTION ⚠
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map', {
+            preferCanvas: true
+        }).setView([20, 0], 2);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            className: 'dark-tiles'
+        }).addTo(map);
+        
+        var marker;
+        map.on('click', function(e) {
+            if(marker) map.removeLayer(marker);
+            marker = L.marker(e.latlng).addTo(map);
+            document.getElementsByName('{{ form.lat.name }}')[0].value = e.latlng.lat;
+            document.getElementsByName('{{ form.lon.name }}')[0].value = e.latlng.lng;
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.latlng.lat}&lon=${e.latlng.lng}`)
+                .then(r => r.json())
+                .then(d => document.getElementsByName('{{ form.address.name }}')[0].value = d.display_name || '');
+        });
+    </script>
+</body>
+</html></div>

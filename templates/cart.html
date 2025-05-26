@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ _('Cart') }}</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #001100 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #000011 0%, transparent 50%);
+        }
+        h1 {
+            color: #ff0040;
+            text-shadow: 0 0 10px #ff0040;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #111;
+            border: 1px solid #333;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #1a1a1a;
+            color: #ff0040;
+            text-shadow: 0 0 5px #ff0040;
+        }
+        tr:hover {
+            background-color: #1a1a1a;
+        }
+        p {
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            text-shadow: 0 0 5px #00ff00;
+            border: 1px solid #00ff00;
+            padding: 8px 16px;
+            display: inline-block;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background-color: #00ff00;
+            color: #000;
+            box-shadow: 0 0 15px #00ff00;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff0040;
+            text-shadow: 0 0 10px #ff0040;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ _('Your Cart') }}</h1>
+    <table>
+        <tr>
+            <th>{{ _('Product') }}</th>
+            <th>{{ _('Price') }}</th>
+            <th>{{ _('Qty') }}</th>
+            <th>{{ _('Subtotal') }}</th>
+        </tr>
+        {% for item in cart_items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.qty }}</td>
+                <td>{{ item.subtotal }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p class="total">{{ _('Total') }}: {{ total }} BTC</p>
+    <p>
+        <a href="{{ url_for('checkout') }}">{{ _('Checkout') }}</a>
+        <a href="{{ url_for('index') }}">{{ _('Continue Shopping') }}</a>
+    </p>
+</body>
+</html>

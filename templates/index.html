@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ _('Shadow Market') }}</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 50%);
+        }
+        nav {
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border: 1px solid #00ff00;
+            padding: 3px 8px;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background-color: #00ff00;
+            color: #000;
+        }
+        select {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 5px;
+        }
+        h1 {
+            text-shadow: 0 0 10px #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <form method="get" style="display:inline;">
+            <select name="lang" onchange="this.form.submit()">
+                {% for code in ['en','es','ru'] %}
+                    <option value="{{ code }}" {% if request.args.get('lang') == code %}selected{% endif %}>
+                        {{ code.upper() }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+        {% if current_user.is_authenticated %}
+            {{ _('Hello') }}, {{ current_user.username }} |
+            <a href="{{ url_for('change_password') }}">{{ _('Change Password') }}</a> |
+            {% if current_user.is_admin %}
+                <a href="{{ url_for('admin_sellers') }}">{{ _('Approve Sellers') }}</a> |
+                <a href="{{ url_for('admin_users') }}">{{ _('Manage Users') }}</a> |
+            {% endif %}
+            <a href="{{ url_for('logout') }}">{{ _('Logout') }}</a>
+            {% if current_user.is_seller and current_user.is_approved %}
+                | <a href="{{ url_for('seller_products') }}">{{ _('Manage Products') }}</a>
+            {% endif %}
+        {% else %}
+      <a href="{{ url_for('login') }}">{{ _('Login') }}</a> |
+      <a href="{{ url_for('register') }}">{{ _('Register') }}</a>
+    {% endif %}
+  </nav>
+
+  <h1>{{ _('Product Catalog') }}</h1>
+  <ul>
+    {% for p in products %}
+      <li>
+        {{ p.name }} – {{ p.price_btc }} BTC
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('add_to_cart', pid=p.id) }}">[{{ _('Add to cart') }}]</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% if current_user.is_authenticated %}
+    <p><a href="{{ url_for('cart') }}">{{ _('View Cart') }}</a></p>
+  {% endif %}
+</body>
+</html>

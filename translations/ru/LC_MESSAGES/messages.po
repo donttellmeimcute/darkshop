@@ -1,0 +1,278 @@
+# Russian translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-05-25 18:08-0600\n"
+"PO-Revision-Date: 2025-05-25 18:09-0600\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
+
+#: app.py:113
+msgid "Access denied: administrators only."
+msgstr ""
+
+#: app.py:123
+msgid "Access denied: seller approval required."
+msgstr ""
+
+#: app.py:152
+msgid "Username already taken."
+msgstr ""
+
+#: app.py:164
+msgid "Seller request submitted, awaiting admin approval."
+msgstr ""
+
+#: app.py:166
+msgid "Registration successful. Please log in."
+msgstr ""
+
+#: app.py:177
+msgid "Logged in successfully."
+msgstr ""
+
+#: app.py:179
+msgid "Invalid username or password."
+msgstr ""
+
+#: app.py:186
+msgid "You have been logged out."
+msgstr ""
+
+#: app.py:198
+msgid "{name} added to cart."
+msgstr ""
+
+#: app.py:218
+msgid "Your cart is empty."
+msgstr ""
+
+#: app.py:230
+msgid "Error creating invoice. Try again later."
+msgstr ""
+
+#: app.py:248
+msgid "No active order."
+msgstr ""
+
+#: app.py:309
+msgid "Product created."
+msgstr ""
+
+#: app.py:321
+msgid "Product updated."
+msgstr ""
+
+#: app.py:330
+msgid "Product deleted."
+msgstr ""
+
+#: app.py:346
+msgid "{user} approved as seller."
+msgstr ""
+
+#: app.py:354
+msgid "{user} rejected."
+msgstr ""
+
+#: app.py:372
+msgid "{user} password updated."
+msgstr ""
+
+#: app.py:384
+msgid "Current password incorrect."
+msgstr ""
+
+#: app.py:388
+msgid "Your password has been updated."
+msgstr ""
+
+#: templates/admin_sellers.html:3 templates/admin_sellers.html:5
+msgid "Seller Requests"
+msgstr ""
+
+#: templates/admin_sellers.html:6 templates/admin_users.html:6
+#: templates/change_password.html:21 templates/login.html:12
+#: templates/order_status.html:10 templates/register.html:14
+#: templates/seller_products.html:6
+msgid "Home"
+msgstr ""
+
+#: templates/admin_sellers.html:12
+msgid "Approve"
+msgstr ""
+
+#: templates/admin_sellers.html:15
+msgid "Reject"
+msgstr ""
+
+#: templates/admin_sellers.html:19
+msgid "No pending requests."
+msgstr ""
+
+#: templates/admin_users.html:3 templates/admin_users.html:5
+#: templates/index.html:23
+msgid "Manage Users"
+msgstr ""
+
+#: templates/admin_users.html:9
+msgid "ID"
+msgstr ""
+
+#: templates/admin_users.html:9
+msgid "Username"
+msgstr ""
+
+#: templates/admin_users.html:10
+msgid "Seller?"
+msgstr ""
+
+#: templates/admin_users.html:10
+msgid "Approved?"
+msgstr ""
+
+#: templates/admin_users.html:10
+msgid "Actions"
+msgstr ""
+
+#: templates/admin_users.html:18 templates/change_password.html:3
+#: templates/index.html:20
+msgid "Change Password"
+msgstr ""
+
+#: templates/cart.html:3
+msgid "Cart"
+msgstr ""
+
+#: templates/cart.html:5
+msgid "Your Cart"
+msgstr ""
+
+#: templates/cart.html:7
+msgid "Product"
+msgstr ""
+
+#: templates/cart.html:7
+msgid "Price"
+msgstr ""
+
+#: templates/cart.html:7
+msgid "Qty"
+msgstr ""
+
+#: templates/cart.html:7
+msgid "Subtotal"
+msgstr ""
+
+#: templates/cart.html:17 templates/order_status.html:8
+msgid "Total"
+msgstr ""
+
+#: templates/cart.html:18 templates/checkout.html:3
+msgid "Checkout"
+msgstr ""
+
+#: templates/cart.html:19
+msgid "Continue Shopping"
+msgstr ""
+
+#: templates/change_password.html:7
+msgid "Change Your Password"
+msgstr ""
+
+#: templates/change_password.html:9
+msgid "Change Password for"
+msgstr ""
+
+#: templates/checkout.html:8
+msgid "Confirm Order"
+msgstr ""
+
+#: templates/checkout.html:16
+msgid "Back to Cart"
+msgstr ""
+
+#: templates/index.html:5
+msgid "BTC Store"
+msgstr ""
+
+#: templates/index.html:19
+msgid "Hello"
+msgstr ""
+
+#: templates/index.html:22
+msgid "Approve Sellers"
+msgstr ""
+
+#: templates/index.html:25
+msgid "Logout"
+msgstr ""
+
+#: templates/index.html:27
+msgid "Manage Products"
+msgstr ""
+
+#: templates/index.html:30 templates/login.html:3 templates/login.html:5
+msgid "Login"
+msgstr ""
+
+#: templates/index.html:31 templates/register.html:3 templates/register.html:5
+msgid "Register"
+msgstr ""
+
+#: templates/index.html:35
+msgid "Product Catalog"
+msgstr ""
+
+#: templates/index.html:41
+msgid "Add to cart"
+msgstr ""
+
+#: templates/index.html:47
+msgid "View Cart"
+msgstr ""
+
+#: templates/order_status.html:3 templates/order_status.html:5
+msgid "Order Status"
+msgstr ""
+
+#: templates/order_status.html:6
+msgid "Address"
+msgstr ""
+
+#: templates/order_status.html:7
+msgid "Items"
+msgstr ""
+
+#: templates/order_status.html:9
+msgid "Invoice"
+msgstr ""
+
+#: templates/order_status.html:9
+msgid "Pay Now"
+msgstr ""
+
+#: templates/product_form.html:12
+msgid "Back"
+msgstr ""
+
+#: templates/seller_products.html:3 templates/seller_products.html:5
+msgid "My Products"
+msgstr ""
+
+#: templates/seller_products.html:6
+msgid "New Product"
+msgstr ""
+

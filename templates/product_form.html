@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        form {
+            background-color: #111;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            max-width: 500px;
+        }
+        
+        p {
+            margin: 15px 0;
+        }
+        
+        label {
+            color: #00ff00;
+            display: inline-block;
+            width: 120px;
+        }
+        
+        input[type="text"], input[type="number"] {
+            background-color: #222;
+            border: 1px solid #444;
+            color: #00ff00;
+            padding: 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        input[type="submit"] {
+            background-color: #333;
+            color: #00ff00;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #444;
+            box-shadow: 0 0 5px #00ff00;
+        }
+        
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border: 1px solid #333;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        
+        a:hover {
+            background-color: #222;
+            box-shadow: 0 0 5px #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <form method="post">
+        {{ form.csrf_token }}
+        <p>{{ form.name.label }}: {{ form.name }}</p>
+        <p>{{ form.price_btc.label }}: {{ form.price_btc }}</p>
+        <p>{{ form.submit }}</p>
+    </form>
+    <p><a href="{{ url_for('seller_products') }}">{{ _('Back') }}</a></p>
+</body>
+</html>

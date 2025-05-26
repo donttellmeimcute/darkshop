@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ _('Order Status') }}</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #001100 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #002200 0%, transparent 50%);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        h1 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            text-align: center;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .order-info {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #004400;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+        .order-info p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        strong {
+            color: #00cc00;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            border: 1px solid #00ff00;
+            padding: 8px 15px;
+            display: inline-block;
+            margin: 10px 5px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        a:hover {
+            background: #00ff00;
+            color: #000;
+            box-shadow: 0 0 15px #00ff00;
+        }
+        .nav-home {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-right: 10px;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="status-indicator"></span>{{ _('Order Status') }}</h1>
+        
+        <div class="order-info">
+            <p><strong>{{ _('Address') }}:</strong> {{ order.address }}</p>
+            <p><strong>{{ _('Items') }}:</strong> {{ order.items|join(', ') }}</p>
+            <p><strong>{{ _('Total') }}:</strong> {{ order.total_btc }} BTC</p>
+            <p><strong>{{ _('Invoice') }}:</strong> <a href="{{ order.url }}" target="_blank">{{ _('Pay Now') }}</a></p>
+        </div>
+        
+        <div class="nav-home">
+            <a href="{{ url_for('index') }}">{{ _('Home') }}</a>
+        </div>
+    </div>
+</body>
+</html>
