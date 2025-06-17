@@ -58,6 +58,8 @@ class Product(db.Model):
     id        = db.Column(db.Integer, primary_key=True)
     name      = db.Column(db.String(120), nullable=False)
     price_btc = db.Column(db.Numeric(16,8), nullable=False)
+    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    seller    = db.relationship('User', backref='products')
 
 # ── FORMS ───────────────────────────────────────────────────────────────────────────
 class RegisterForm(FlaskForm):
@@ -283,8 +285,9 @@ def check_btcpay_invoice_status(inv_id):
 @seller_required
 def seller_products():
     blank_form = FlaskForm()
+    my_products = Product.query.filter_by(seller_id=current_user.id).all()
     return render_template('seller_products.html',
-                           products=Product.query.all(),
+                           products=my_products,
                            form=blank_form)
 
 @app.route('/seller/product/new', methods=['GET','POST'])
@@ -292,8 +295,11 @@ def seller_products():
 def new_product():
     form = ProductForm()
     if form.validate_on_submit():
-        p = Product(name=form.name.data, price_btc=form.price_btc.data)
-        db.session.add(p); db.session.commit()
+        p = Product(name=form.name.data,
+                    price_btc=form.price_btc.data,
+                    seller=current_user)
+        db.session.add(p)
+        db.session.commit()
         flash(_('Producto creado.'), 'success')
         return redirect(url_for('seller_products'))
     return render_template('product_form.html', form=form, title=_('Nuevo producto'))
@@ -302,6 +308,9 @@ def new_product():
 @seller_required
 def edit_product(pid):
     p = Product.query.get_or_404(pid)
+    if p.seller_id != current_user.id:
+        flash(_('Acceso denegado: producto de otro vendedor.'), 'danger')
+        return redirect(url_for('seller_products'))
     form = ProductForm(obj=p)
     if form.validate_on_submit():
         p.name, p.price_btc = form.name.data, form.price_btc.data
@@ -314,7 +323,11 @@ def edit_product(pid):
 @seller_required
 def delete_product(pid):
     p = Product.query.get_or_404(pid)
-    db.session.delete(p); db.session.commit()
+    if p.seller_id != current_user.id:
+        flash(_('Acceso denegado: producto de otro vendedor.'), 'danger')
+        return redirect(url_for('seller_products'))
+    db.session.delete(p)
+    db.session.commit()
     flash(_('Producto eliminado.'), 'info')
     return redirect(url_for('seller_products'))
 
